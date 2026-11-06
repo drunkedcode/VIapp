@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="vi-yellow-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFC700"/>
+      <stop offset="100%" stop-color="#FF9900"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Destellos superiores -->
+  <path d="M 256 50 L 256 16 M 316 66 L 344 38 M 196 66 L 168 38" stroke="#FFC700" stroke-width="20" stroke-linecap="round"/>
+  
+  <!-- Rombo Principal -->
+  <rect x="110" y="110" width="292" height="292" rx="52" transform="rotate(45 256 256)" fill="url(#vi-yellow-grad)" stroke="#0F172A" stroke-width="24" stroke-linejoin="round"/>
+  
+  <!-- Silueta del Ojo -->
+  <path d="M 120 256 C 170 176, 342 176, 392 256 C 342 336, 170 336, 120 256 Z" fill="#0F172A"/>
+  <path d="M 140 256 C 185 196, 327 196, 372 256 C 327 316, 185 316, 140 256 Z" fill="#FFFFFF"/>
+  
+  <!-- Pupila con Reflejo -->
+  <circle cx="256" cy="256" r="54" fill="#0F172A"/>
+  <circle cx="240" cy="240" r="16" fill="#FFFFFF"/>
+</svg>
