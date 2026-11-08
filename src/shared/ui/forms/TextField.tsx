@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import type { ChangeEvent, FocusEvent } from "react";
 import { masks, cleaners, type MaskType } from "./helpers/masks";
 import { validate } from "./helpers/validators";
-import "./forms.css";
+import { field, inputClass } from "./formStyles";
 
 interface TextFieldProps {
   label: string;
@@ -53,14 +53,10 @@ export default function TextField({
     onBlur?.(e);
   };
 
-  const classes = ["field", shownError && "field--error", className]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={classes}>
-      <label htmlFor={inputId} className="field__label">
-        {label} {required && <span className="field__required">*</span>}
+    <div className={`${field.root} ${className}`.trim()}>
+      <label htmlFor={inputId} className={field.label}>
+        {label} {required && <span className={field.required}>*</span>}
       </label>
       <input
         id={inputId}
@@ -73,10 +69,10 @@ export default function TextField({
         required={required}
         aria-invalid={!!shownError}
         aria-describedby={shownError ? `${inputId}-error` : undefined}
-        className="field__input"
+        className={inputClass(!!shownError)}
       />
       {shownError && (
-        <p id={`${inputId}-error`} className="field__error">
+        <p id={`${inputId}-error`} className={field.error}>
           {shownError}
         </p>
       )}

@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { ChevronDown } from "lucide-react";
-import "./forms.css";
+import { field, inputClass } from "./formStyles";
 
 export interface SelectOption {
   value: string | number;
@@ -35,16 +35,12 @@ export default function SelectField({
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
-  const classes = ["field", error && "field--error", className]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={classes}>
-      <label htmlFor={inputId} className="field__label">
-        {label} {required && <span className="field__required">*</span>}
+    <div className={`${field.root} ${className}`.trim()}>
+      <label htmlFor={inputId} className={field.label}>
+        {label} {required && <span className={field.required}>*</span>}
       </label>
-      <div className="field__control">
+      <div className={field.control}>
         <select
           id={inputId}
           name={name}
@@ -53,7 +49,7 @@ export default function SelectField({
           required={required}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
-          className="field__input field__select"
+          className={inputClass(!!error, { action: true, extra: "cursor-pointer appearance-none" })}
         >
           <option value="">{placeholder}</option>
           {options.map((opt) => (
@@ -62,10 +58,10 @@ export default function SelectField({
             </option>
           ))}
         </select>
-        <ChevronDown size={18} className="field__chevron" aria-hidden="true" />
+        <ChevronDown size={18} className={field.chevron} aria-hidden="true" />
       </div>
       {error && (
-        <p id={`${inputId}-error`} className="field__error">
+        <p id={`${inputId}-error`} className={field.error}>
           {error}
         </p>
       )}

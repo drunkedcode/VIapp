@@ -1,7 +1,7 @@
 import { useId, useState } from "react";
 import type { FocusEvent } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import "./forms.css";
+import { field, inputClass } from "./formStyles";
 
 interface PasswordFieldProps {
   label?: string;
@@ -34,16 +34,12 @@ export default function PasswordField({
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
-  const classes = ["field", error && "field--error", className]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={classes}>
-      <label htmlFor={inputId} className="field__label">
-        {label} {required && <span className="field__required">*</span>}
+    <div className={`${field.root} ${className}`.trim()}>
+      <label htmlFor={inputId} className={field.label}>
+        {label} {required && <span className={field.required}>*</span>}
       </label>
-      <div className="field__control">
+      <div className={field.control}>
         <input
           id={inputId}
           name={name}
@@ -56,7 +52,7 @@ export default function PasswordField({
           autoComplete={autoComplete}
           aria-invalid={!!error}
           aria-describedby={error ? `${inputId}-error` : undefined}
-          className="field__input field__input--action"
+          className={inputClass(!!error, { action: true })}
         />
         <button
           type="button"
@@ -64,13 +60,13 @@ export default function PasswordField({
           aria-label={show ? "Ocultar contraseña" : "Mostrar contraseña"}
           aria-pressed={show}
           tabIndex={-1}
-          className="field__toggle"
+          className={field.toggle}
         >
           {show ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
       </div>
       {error && (
-        <p id={`${inputId}-error`} className="field__error">
+        <p id={`${inputId}-error`} className={field.error}>
           {error}
         </p>
       )}

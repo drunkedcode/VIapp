@@ -9,6 +9,8 @@
 /* --------------------------------------------------------------------------
    1. VARIABLES GLOBALES · TEMA OFICIAL VI
    -------------------------------------------------------------------------- */
+@import "tailwindcss";
+
 :root {
   /* --- Diseño y Tipografía --- */
   --app-max-width: 480px;
@@ -123,6 +125,7 @@
   --cart-send-text: #FFFFFF;
 }
 
+@layer base {
 /* --------------------------------------------------------------------------
    2. RESET Y BASE
    -------------------------------------------------------------------------- */
@@ -178,11 +181,6 @@ ul, ol {
 /* --------------------------------------------------------------------------
    3. CONTENEDORES Y TIPOGRAFÍA
    -------------------------------------------------------------------------- */
-.container {
-  width: 92%;
-  max-width: 100%;
-  margin: 0 auto;
-}
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 800;
@@ -193,6 +191,15 @@ h1, h2, h3, h4, h5, h6 {
 h1 { font-size: 1.75rem; }
 h2 { font-size: 1.35rem; }
 h3 { font-size: 1.05rem; }
+
+}
+
+/* .container va fuera de la capa: Tailwind tiene una utilidad con el mismo nombre y esta debe ganarle */
+.container {
+  width: 92%;
+  max-width: 100%;
+  margin: 0 auto;
+}
 
 /* --------------------------------------------------------------------------
    4. BOTONES
