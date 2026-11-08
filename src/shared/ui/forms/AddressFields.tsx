@@ -1,7 +1,6 @@
 import { useState } from "react";
 import TextField from "./TextField";
 import { findCep } from "./helpers/findCep";
-import "./forms.css";
 
 export interface AddressData {
   cep?: string;
@@ -53,7 +52,7 @@ export function AddressFields({
   };
 
   return (
-    <div className={`address-fields ${className}`}>
+    <div className={`flex flex-col gap-4 ${className}`.trim()}>
       <TextField
         label="CEP"
         value={value.cep ?? ""}
@@ -63,7 +62,11 @@ export function AddressFields({
         error={errors.cep ?? cepError}
       />
 
-      {loadingCep && <p className="address-fields__loading">Buscando CEP...</p>}
+      {loadingCep && (
+        <p className="animate-pulse text-center text-[0.75rem] font-semibold text-[color:var(--text-muted)] motion-reduce:animate-none">
+          Buscando CEP...
+        </p>
+      )}
 
       <TextField
         label="Logradouro"
@@ -73,9 +76,9 @@ export function AddressFields({
         error={errors.street}
       />
 
-      <div className="address-fields__row">
+      <div className="grid grid-cols-3 gap-3">
         <TextField
-          className="address-fields__col-1"
+          className="col-span-1"
           label="Número"
           value={value.number ?? ""}
           onChange={(val) => onChange({ number: val })}
@@ -83,7 +86,7 @@ export function AddressFields({
           error={errors.number}
         />
         <TextField
-          className="address-fields__col-2"
+          className="col-span-2"
           label="Complemento"
           value={value.complement ?? ""}
           onChange={(val) => onChange({ complement: val })}
@@ -99,9 +102,9 @@ export function AddressFields({
         error={errors.neighborhood}
       />
 
-      <div className="address-fields__row">
+      <div className="grid grid-cols-3 gap-3">
         <TextField
-          className="address-fields__col-2"
+          className="col-span-2"
           label="Cidade"
           value={value.city ?? ""}
           onChange={(val) => onChange({ city: val })}
@@ -109,7 +112,7 @@ export function AddressFields({
           error={errors.city}
         />
         <TextField
-          className="address-fields__col-1"
+          className="col-span-1"
           label="UF"
           value={value.state ?? ""}
           onChange={(val) => onChange({ state: val.toUpperCase().slice(0, 2) })}

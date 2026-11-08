@@ -12,7 +12,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       devOptions: {
-        enabled: true, // probar la PWA en dev
+        enabled: false, // probar la PWA en dev
       },
       manifest: {
         name: 'VI — O bairro acontece aqui',
