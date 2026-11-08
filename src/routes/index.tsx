@@ -9,7 +9,7 @@ import Directory from "@/Pages/vi/Directory/Directory";
 import Camera from "@/Pages/vi/Camera/Camera";
 import Favorites from "@/Pages/vi/Favorites/Favorites";
 import Profile from "@/Pages/vi/Profile/Profile";
-import WellcomeBusiness from "@/Pages/Business/create/WellcomeBusiness";
+import WelcomeBusiness from "@/Pages/Business/create/WelcomeBusiness";
 import BusinessCreate from "@/Pages/Business/create/Create";
 
 import Login from "@/Pages/auth/Login";
@@ -18,7 +18,7 @@ import Recover from "@/Pages/auth/Recover";
 
 export const router = createBrowserRouter([
   { path: "/", element: <ViSplash /> },
-  { path: "/business/create/wellcomeBusiness", element: <WellcomeBusiness /> },
+  { path: "/business/create/welcome", element: <WelcomeBusiness /> },
 
   {
     element: <AuthLayout />,

@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { Check } from "lucide-react";
 
 // Reutilizamos los mismos tipos del Wizard grande

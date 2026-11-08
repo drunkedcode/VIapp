@@ -9,7 +9,7 @@ export default function GeneralTab() {
       </p>
 
       <Link 
-        to="/business/create/wellcomeBusiness"
+        to="/business/create/welcome"
         className="btn btn--primary mt-6"
       >
         Registrar Negocio

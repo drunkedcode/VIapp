@@ -1,7 +1,6 @@
 import type { LocationData } from "./LocationStep";
 import type { ReviewData } from "./ReviewStep";
 
-const digits = (s: string) => s.replace(/\D/g, "");
 const orNull = (s: string) => s.trim() || null;
 
 export function toPayload(data: Record<string, unknown>) {
