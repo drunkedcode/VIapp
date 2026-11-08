@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import TextField from '@/shared/ui/forms/TextField'
-import PasswordField from '@/shared/ui/forms/PasswordField'
+import TextField from '@/Shared/ui/forms/TextField'
+import PasswordField from '@/Shared/ui/forms/PasswordField'
 
 export default function Register() {
   const navigate = useNavigate()

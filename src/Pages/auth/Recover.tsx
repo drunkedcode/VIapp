@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
-import TextField from '@/shared/ui/forms/TextField'
+import TextField from '@/Shared/ui/forms/TextField'
 
 export default function Recover() {
   const [email, setEmail] = useState('')
