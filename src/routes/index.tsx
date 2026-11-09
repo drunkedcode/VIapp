@@ -9,8 +9,9 @@ import Directory from "@/Pages/vi/Directory/Directory";
 import Camera from "@/Pages/vi/Camera/Camera";
 import Favorites from "@/Pages/vi/Favorites/Favorites";
 import Profile from "@/Pages/vi/Profile/Profile";
-import WelcomeBusiness from "@/Pages/Business/create/WelcomeBusiness";
-import BusinessCreate from "@/Pages/Business/create/Create";
+import Opportunities from "@/Pages/vi/Opportunities/Opportunities";
+import WelcomeBusiness from "@/Pages/Business/Create/WelcomeBusiness";
+import BusinessCreate from "@/Pages/Business/Create/Create";
 
 import Login from "@/Pages/auth/Login";
 import Register from "@/Pages/auth/Register";
@@ -35,7 +36,7 @@ export const router = createBrowserRouter([
       { path: "/directory", element: <Directory /> },
       { path: "/camera", element: <Camera /> },
       { path: "/favorites", element: <Favorites /> },
-      { path: "/profile", element: <Profile /> },
+      { path: "/oportunity", element: <Profile /> },
       { path: "/business/create", element: <BusinessCreate /> },
     ],
   },
