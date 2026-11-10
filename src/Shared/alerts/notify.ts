@@ -1,9 +1,9 @@
-import { toast } from 'sonner'
+import { toast, type ExternalToast } from 'sonner'
 
 /**
  * Notificaciones de toda la app. Uso desde cualquier componente:
  *
- *   import { notify } from '@/shared/alerts/notify'
+ *   import { notify } from '@/Shared/alerts/notify'
  *   notify.success('Salvo com sucesso')
  *   notify.error('Algo deu errado', 'Tente novamente em instantes')
  *
@@ -14,11 +14,33 @@ import { toast } from 'sonner'
  *   })
  */
 export const notify = {
-  success: (message: string, description?: string) => toast.success(message, { description }),
-  error: (message: string, description?: string) => toast.error(message, { description }),
-  warning: (message: string, description?: string) => toast.warning(message, { description }),
-  info: (message: string, description?: string) => toast(message, { description }),
-  loading: (message: string) => toast.loading(message),
-  dismiss: (id?: string | number) => toast.dismiss(id),
-  promise: toast.promise,
+  success: (message: string, description?: string, options?: ExternalToast) =>
+    toast.success(message, { description, ...options }),
+
+  error: (message: string, description?: string, options?: ExternalToast) =>
+    toast.error(message, { description, ...options }),
+
+  warning: (message: string, description?: string, options?: ExternalToast) =>
+    toast.warning(message, { description, ...options }),
+
+  info: (message: string, description?: string, options?: ExternalToast) =>
+    toast(message, { description, ...options }),
+
+  loading: (message: string, options?: ExternalToast) =>
+    toast.loading(message, options),
+
+  dismiss: (id?: string | number) =>
+    toast.dismiss(id),
+
+  promise: <T>(
+    promise: Promise<T> | (() => Promise<T>),
+    data: {
+      loading?: string | React.ReactNode
+      success?: string | React.ReactNode | ((data: T) => string | React.ReactNode)
+      error?: string | React.ReactNode | ((error: unknown) => string | React.ReactNode)
+      finally?: () => void | Promise<void>
+    }
+  ) => {
+    return toast.promise(promise, data)
+  },
 }

@@ -12,7 +12,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       devOptions: {
-        enabled: false, // probar la PWA en dev
+        enabled: true, // Activado para poder probar la PWA en desarrollo
+        type: 'module',
       },
       manifest: {
         name: 'VI — O bairro acontece aqui',
@@ -37,6 +38,8 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{html,css,js,ico,png,svg,webp,woff2}'],
+        navigateFallback: '/', //Esencial para React Router v7 en SPA
+        navigateFallbackDenylist: [/^\/api/], // Evita que interceptara rutas del backend Laravel/API
       },
     }),
   ],

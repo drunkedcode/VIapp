@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TextField from "@/Shared/ui/forms/TextField";
 import StepCard from "@/Shared/components/wizards/StepCard";
 import type { StepProps } from "@/Shared/components/wizards/BaseWizard";
-import { masks, cleaners } from "@/Shared/ui/forms/helpers/masks";
+import { masks } from "@/Shared/ui/forms/helpers/masks";
 
 export interface BusinessData {
   name: string;

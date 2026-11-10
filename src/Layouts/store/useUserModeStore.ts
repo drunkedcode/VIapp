@@ -8,7 +8,7 @@ interface UserModeState {
   toggleMode: () => void
 }
 
-export const useUserModeStore = create<UserModeState>((set, get) => ({
+export const useUserModeStore = create<UserModeState>((set) => ({
   mode: 'person', // por defecto: usuario normal
 
   setMode: (mode) => set({ mode }),

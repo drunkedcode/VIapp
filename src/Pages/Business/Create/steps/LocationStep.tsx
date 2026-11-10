@@ -5,8 +5,8 @@ import StepCard from "@/Shared/components/wizards/StepCard";
 import type { StepProps } from "@/Shared/components/wizards/BaseWizard";
 import { masks, cleaners } from "@/Shared/ui/forms/helpers/masks";
 import { findCep } from "@/Shared/ui/forms/helpers/findCep";
-import { geocodeAddress, getCurrentPoint, reverseGeocode } from "@/services/geo/geo.service";
-import type { GeoPoint } from "@/services/geo/geo.types";
+import { geocodeAddress, getCurrentPoint, reverseGeocode } from "@/Services/geo/geo.service";
+import type { GeoPoint } from "@/Services/geo/geo.types";
 import LocationMap from "./LocationMap";
 
 export interface LocationData {

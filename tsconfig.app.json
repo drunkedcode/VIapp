@@ -5,6 +5,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "ignoreDeprecations": "6.0",
 
     /* El resto de tus configuraciones existentes de Vite/React... */
     "composite": true,

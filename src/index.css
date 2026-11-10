@@ -51,7 +51,7 @@
   /* --- Barra Superior --- */
   --navbar-bg: var(--brand-secondary);
   --navbar-border: var(--brand-secondary-dark);
-  --navbar-text: var(--brand-secondary-text);
+  --navbar-text: var(--brand-secondary-dark);
   --navbar-accent: var(--brand-primary);
   --navbar-logo-bg: var(--color-white);
   --navbar-logo-border: var(--brand-primary);
