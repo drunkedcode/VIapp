@@ -1,3 +1,6 @@
+import { api, tokenStorage } from '@/Services/api/api'
+import { isMockCredentialValid, mockUser, MOCK_TOKEN } from '@/Mocks/auth.mock'
+
 export interface User {
   id: string
   name: string
@@ -18,49 +21,50 @@ export interface AuthResponse {
   token: string
 }
 
+/** true = usuario mock. Para el backend real: VITE_USE_MOCK=false en el .env */
+const USE_MOCK = import.meta.env.VITE_USE_MOCK !== 'false'
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
 export const authService = {
-  
+  /** POST /api/v1/auth/login → { user, token } */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
-    // TODO: Reemplazar con endpoint real `api.post('/auth/login', credentials)`
-    await new Promise((resolve) => setTimeout(resolve, 800)) // Simula latencia de red
+    let response: AuthResponse
 
-    if (!credentials.identifier) {
-      throw new Error('Credenciales inválidas')
+    if (USE_MOCK) {
+      await delay(800)
+      if (!isMockCredentialValid(credentials.identifier, credentials.password)) {
+        throw new Error('Credenciais inválidas. Verifique seus dados.')
+      }
+      response = { user: mockUser, token: MOCK_TOKEN }
+    } else {
+      const { data } = await api.post<AuthResponse>('/api/v1/auth/login', {
+        identifier: credentials.identifier,
+        password: credentials.password,
+      })
+      response = data
     }
 
-    const mockUser: User = {
-      id: 'usr_123',
-      name: 'Miguel Cavalcante',
-      email: credentials.identifier.includes('@') ? credentials.identifier : 'miguel@ejemplo.com',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
-      neighborhoodHero: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop',
-      role: 'morador'
-    }
-
-    const mockToken = 'bearer_mock_pwa_token_vi_2026'
-    localStorage.setItem('kubix_ctx_token', mockToken)
-
-    return {
-      user: mockUser,
-      token: mockToken,
-    }
+    tokenStorage.set(response.token, credentials.rememberMe ?? true)
+    return response
   },
 
+  /** GET /api/v1/me → User */
   async getProfile(): Promise<User> {
-    // TODO: Reemplazar con endpoint real `api.get('/me')`
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    return {
-      id: 'usr_123',
-      name: 'Miguel Cavalcante',
-      email: 'miguel@ejemplo.com',
-      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop',
-      neighborhoodHero: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=600&auto=format&fit=crop',
-      role: 'morador'
+    if (USE_MOCK) {
+      await delay(300)
+      return mockUser
     }
+    const { data } = await api.get<User>('/api/v1/me')
+    return data
   },
 
+  /** POST /api/v1/auth/logout */
   async logout(): Promise<void> {
-    // TODO: Reemplazar con endpoint real `api.post('/logout')`
-    localStorage.removeItem('kubix_ctx_token')
+    try {
+      if (!USE_MOCK) await api.post('/api/v1/auth/logout')
+    } finally {
+      tokenStorage.clear()
+    }
   },
 }

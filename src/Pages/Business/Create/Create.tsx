@@ -19,24 +19,13 @@ export default function BusinessCreate() {
     navigate('/feed')
   }
 
-  return (
-    // <ViLayout>
-      <div className="w-full px-4 py-6 space-y-6">
-        <div>
-          <h1 className="text-xl font-extrabold text-[var(--text-dark)]">
-            Registrar Nuevo Negocio
-          </h1>
-          <p className="text-sm text-[var(--text-muted)] mt-1">
-            Completá los datos de ubicación y confirmá
-          </p>
-        </div>
-
+return (
+    <div className="w-full">
         <BaseWizard
-          steps={businessCreateSteps}
-          onFinish={handleFinish}
-          onCancel={handleCancel}
+            steps={businessCreateSteps}
+            onFinish={handleFinish}
+            onCancel={handleCancel}
         />
-      </div>
-    // </ViLayout>
-  )
+    </div>
+);
 }

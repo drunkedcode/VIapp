@@ -1,17 +1,13 @@
+
 import { useCallback, useState, type ReactElement } from "react";
 import { Check } from "lucide-react";
 
 /** Lo que recibe cada paso. El paso es dueño de su dato, su validación y sus errores. */
 export interface StepProps<T = any> {
-    /** Lo que este paso guardó antes (al volver atrás). */
     value: T | undefined;
-    /** El paso avisa su dato y si es válido. */
     onChange: (value: T, valid: boolean) => void;
-    /** Sube cada vez que el usuario intenta avanzar con el paso inválido: mostrar todos los errores. */
     attempt: number;
-    /** Todos los bloques (lo usa la revisión). */
     data: Record<string, any>;
-    /** Props extra del wizard (stepProps). */
     [extra: string]: any;
 }
 
@@ -45,7 +41,6 @@ export default function BaseWizard({
     const key = step?.key ?? "";
     const isLast = index === steps.length - 1;
 
-    // Estable mientras estés en el mismo paso, así el paso puede ponerlo en sus deps sin loops.
     const handleStepChange = useCallback(
         (value: any, valid: boolean) => {
             setData((prev) => ({ ...prev, [key]: value }));
@@ -56,13 +51,15 @@ export default function BaseWizard({
 
     const handleNext = () => {
         if (!validity[key]) {
-            setAttempt((a) => a + 1); // el paso pinta sus errores
+            setAttempt((a) => a + 1);
             return;
         }
+
         if (isLast) {
             onFinish(data);
             return;
         }
+
         setAttempt(0);
         setIndex((i) => i + 1);
     };
@@ -72,70 +69,80 @@ export default function BaseWizard({
             onCancel();
             return;
         }
+
         setAttempt(0);
         setIndex((i) => i - 1);
     };
 
     if (!step) return null;
+
     const CurrentStep = step.component;
 
     return (
-        <div className="w-full flex flex-col items-center gap-8">
-            {/* BARRA DE PASOS — Estilo adaptado a VI */}
-            <div className="w-full max-w-2xl">
-                <div className="flex items-start justify-between">
-                    {steps.map((s, idx) => {
-                        const stepNumber = idx + 1;
-                        const isCompleted = index + 1 > stepNumber;
-                        const isCurrent = index + 1 === stepNumber;
+        <div className="flex w-full flex-col items-center gap-2">
 
-                        return (
-                            <div
-                                key={s.key}
-                                className="flex flex-col items-center gap-2 flex-1 relative"
-                            >
+            {/* BARRA DE PROGRESO */}
+            <div className="w-full min-w-0 bg-black px-2 py-1">
+                <div className="overflow-x-auto overflow-y-hidden overscroll-x-contain touch-pan-x scrollbar-none">
+                    <div className="flex w-max min-w-full items-start">
+
+                        {steps.map((s, idx) => {
+                            const stepNumber = idx + 1;
+                            const isCompleted = index > idx;
+                            const isCurrent = index === idx;
+
+                            return (
                                 <div
-                                    className={`h-9 w-9 rounded-full flex items-center justify-center text-sm font-bold transition-all z-10 ${
-                                        isCompleted || isCurrent
-                                            ? "bg-[var(--brand-primary)] text-[var(--brand-primary-text)] shadow-sm"
-                                            : "bg-[var(--brand-secondary)] text-[var(--text-muted)] border border-[var(--border-light)]"
-                                    }`}
+                                    key={s.key}
+                                    className="relative flex min-w-[90px] flex-1 flex-col items-center gap-1 px-1 py-1"
                                 >
-                                    {isCompleted ? (
-                                        <Check className="h-4 w-4" />
-                                    ) : (
-                                        stepNumber
+                                    {/* Línea de conexión */}
+                                    {idx < steps.length - 1 && (
+                                        <div
+                                            className={`absolute left-1/2 top-[19px] z-0 h-0.5 w-full ${
+                                                isCompleted
+                                                    ? "bg-yellow-400"
+                                                    : "bg-white/15"
+                                            }`}
+                                        />
                                     )}
-                                </div>
 
-                                <span
-                                    className={`text-xs font-medium text-center px-1 leading-tight ${
-                                        isCurrent
-                                            ? "text-[var(--brand-primary)] font-bold"
-                                            : isCompleted
-                                                ? "text-[var(--text-dark)] font-semibold"
-                                                : "text-[var(--text-muted)]"
-                                    }`}
-                                >
-                                    {s.label}
-                                </span>
-
-                                {idx < steps.length - 1 && (
+                                    {/* Número del paso */}
                                     <div
-                                        className={`absolute top-4 left-1/2 w-full h-0.5 -translate-y-1/2 ${
-                                            isCompleted
-                                                ? "bg-[var(--brand-primary)]"
-                                                : "bg-[var(--border-light)]"
+                                        className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-200 ${
+                                            isCompleted || isCurrent
+                                                ? "bg-yellow-400 text-black shadow-md"
+                                                : "border border-white/20 bg-white/5 text-gray-400"
                                         }`}
-                                    />
-                                )}
-                            </div>
-                        );
-                    })}
+                                    >
+                                        {isCompleted ? (
+                                            <Check className="h-3.5 w-3.5" />
+                                        ) : (
+                                            stepNumber
+                                        )}
+                                    </div>
+
+                                    {/* Nombre del paso */}
+                                    <span
+                                        className={`max-w-full truncate px-1 text-center text-[11px] leading-tight transition-colors duration-200 ${
+                                            isCurrent
+                                                ? "font-bold text-yellow-400"
+                                                : isCompleted
+                                                    ? "font-semibold text-gray-300"
+                                                    : "font-medium text-gray-500"
+                                        }`}
+                                    >
+                                        {s.label}
+                                    </span>
+                                </div>
+                            );
+                        })}
+
+                    </div>
                 </div>
             </div>
 
-            {/* CONTENIDO DEL PASO — sin cambios */}
+            {/* CONTENIDO DEL PASO */}
             <div className="w-full">
                 <CurrentStep
                     key={step.key}
@@ -147,20 +154,23 @@ export default function BaseWizard({
                 />
             </div>
 
-            {/* NAVEGACIÓN — colores adaptados */}
+            {/* NAVEGACIÓN */}
             {!step.hideFooterNav && (
                 <div className="flex w-full max-w-lg justify-between">
                     <button
                         onClick={handleBack}
-                        className="rounded-[var(--radius-md)] px-4 py-2.5 text-sm font-semibold text-[var(--text-muted)] hover:bg-[var(--border-light)] transition-colors"
+                        className="rounded-[var(--radius-md)] px-4 py-2.5 text-sm font-semibold text-[var(--text-muted)] transition-colors hover:bg-[var(--border-light)]"
                     >
                         {index === 0 ? "Cancelar" : "Atrás"}
                     </button>
+
                     <button
                         onClick={handleNext}
                         className="btn btn--primary px-5 py-2.5 text-sm font-bold"
                     >
-                        {isLast ? (step.finishLabel ?? "Finalizar") : "Continuar"}
+                        {isLast
+                            ? (step.finishLabel ?? "Finalizar")
+                            : "Continuar"}
                     </button>
                 </div>
             )}

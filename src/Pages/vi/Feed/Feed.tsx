@@ -41,7 +41,7 @@ export default function Feed() {
   }
 
   return (
-    <div className="flex flex-col gap-2">
+   <div className="flex min-w-0 w-full flex-col gap-2">
       {/* Usamos variant="top" → coincide con las pestañas superiores de las imágenes */}
       <Tabs 
         tabs={ALL_TABS} 

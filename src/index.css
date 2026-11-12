@@ -1,223 +1,297 @@
+
 /* ==========================================================================
-   VI — System Base CSS (PWA · Mobile-First · Refactorización Completa)
-   
-   Estructura global, variables, resets y componentes base.
-   Estrategia: los negocios sobreescriben ÚNICAMENTE las variables --brand-*
-   en su propio archivo theme.css, sin alterar este archivo base.
+   VI — GLOBAL CSS
+   PWA · Mobile First · Tailwind CSS v4
    ========================================================================== */
 
-/* --------------------------------------------------------------------------
-   1. VARIABLES GLOBALES · TEMA OFICIAL VI
-   -------------------------------------------------------------------------- */
 @import "tailwindcss";
 
+/* ==========================================================================
+   1. VARIABLES GLOBALES
+   ========================================================================== */
+
 :root {
-  /* --- Diseño y Tipografía --- */
+  /* Layout */
   --app-max-width: 480px;
-  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, sans-serif;
+
+  /* Radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.85rem;
   --radius-lg: 1.25rem;
   --radius-full: 9999px;
 
-  /* --- Colores Neutros --- */
+  /* Neutral colors */
   --color-black: #0F172A;
   --color-dark: #1E293B;
   --color-white: #FFFFFF;
+
   --bg-page: #F8FAFC;
   --bg-card: #FFFFFF;
+
   --border-light: #E2E8F0;
+
   --text-dark: #0F172A;
   --text-muted: #64748B;
   --text-light: #94A3B8;
 
-  /* --- Estados --- */
+  /* Status */
   --color-success: #16A34A;
   --color-success-bg: #DCFCE7;
   --color-success-text: #15803D;
+
   --color-danger: #DC2626;
   --color-danger-bg: #FEE2E2;
   --color-danger-text: #B91C1C;
 
-  /* --- Identidad VI --- */
+  /* VI Brand */
   --brand-primary: #FFC700;
   --brand-primary-dark: #FF9900;
   --brand-primary-text: #0F172A;
+
   --brand-secondary: #0F172A;
   --brand-secondary-dark: #020617;
   --brand-secondary-text: #FFFFFF;
+
   --brand-accent: #FF9900;
 
-  /* --- Barra Superior --- */
+  /* Navbar */
   --navbar-bg: var(--brand-secondary);
   --navbar-border: var(--brand-secondary-dark);
-  --navbar-text: var(--brand-secondary-dark);
+  --navbar-text: var(--brand-secondary-text);
   --navbar-accent: var(--brand-primary);
+
   --navbar-logo-bg: var(--color-white);
   --navbar-logo-border: var(--brand-primary);
+
   --navbar-btn-bg: rgba(255, 255, 255, 0.08);
   --navbar-btn-bg-hover: rgba(255, 255, 255, 0.16);
   --navbar-btn-border: rgba(255, 255, 255, 0.12);
+
   --navbar-open-bg: var(--color-success-bg);
   --navbar-open-text: var(--color-success-text);
+
   --navbar-closed-bg: var(--color-danger-bg);
   --navbar-closed-text: var(--color-danger-text);
+
   --navbar-dropdown-bg: var(--bg-card);
   --navbar-dropdown-border: var(--border-light);
   --navbar-dropdown-text: var(--text-dark);
   --navbar-dropdown-muted: var(--text-muted);
+
   --navbar-today-bg: rgba(255, 199, 0, 0.12);
   --navbar-today-accent: var(--brand-primary);
   --navbar-today-accent-text: var(--brand-primary-text);
 
-  /* --- Navegación Inferior --- */
+  /* Bottom navigation */
   --bnav-bg: color-mix(in srgb, var(--brand-secondary) 94%, transparent);
   --bnav-border: color-mix(in srgb, var(--brand-secondary-text) 12%, transparent);
   --bnav-text: color-mix(in srgb, var(--brand-secondary-text) 60%, transparent);
   --bnav-text-active: var(--brand-primary);
-  --bnav-fab-bg: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+
+  --bnav-fab-bg: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary-dark) 100%
+  );
   --bnav-fab-text: var(--brand-primary-text);
   --bnav-fab-ring: var(--bg-page);
   --bnav-fab-shadow: 0 6px 20px color-mix(in srgb, var(--brand-primary) 40%, transparent);
 
-  /* --- Componentes --- */
-  --story-ring: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  /* Stories */
+  --story-ring: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary-dark) 100%
+  );
   --story-ring-gap: var(--bg-page);
   --story-text: var(--text-dark);
 
+  /* Business mini cards */
   --mini-bg: var(--bg-card);
   --mini-border: var(--border-light);
   --mini-border-hover: var(--brand-primary);
   --mini-text: var(--text-dark);
   --mini-logo-border: var(--border-light);
+
   --mini-open-bg: var(--color-success-bg);
   --mini-open-text: var(--color-success-text);
+
   --mini-closed-bg: var(--color-danger-bg);
   --mini-closed-text: var(--color-danger-text);
 
+  /* Follow */
   --follow-bg: var(--bg-card);
   --follow-text: var(--brand-secondary);
   --follow-border: var(--brand-primary);
+
   --follow-active-bg: var(--brand-primary);
   --follow-active-text: var(--brand-primary-text);
   --follow-active-border: var(--brand-primary-dark);
 
-  --fab-main-bg: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  /* Floating action button */
+  --fab-main-bg: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary-dark) 100%
+  );
   --fab-main-text: var(--brand-primary-text);
   --fab-main-shadow: 0 6px 20px color-mix(in srgb, var(--brand-primary) 40%, transparent);
+
   --fab-sub-bg: var(--bg-card);
   --fab-sub-text: var(--text-dark);
   --fab-sub-border: var(--border-light);
   --fab-sub-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
 
-  --cart-fab-bg: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  /* Cart */
+  --cart-fab-bg: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary-dark) 100%
+  );
   --cart-fab-text: var(--brand-primary-text);
   --cart-fab-shadow: 0 6px 20px color-mix(in srgb, var(--brand-primary) 40%, transparent);
+
   --cart-badge-bg: var(--brand-secondary);
   --cart-badge-text: var(--brand-secondary-text);
+
   --cart-overlay: rgba(15, 23, 42, 0.6);
+
   --cart-sheet-bg: var(--bg-card);
   --cart-sheet-text: var(--text-dark);
   --cart-sheet-muted: var(--text-muted);
   --cart-sheet-border: var(--border-light);
+
   --cart-row-bg: var(--bg-page);
+
   --cart-send-bg: #25D366;
   --cart-send-text: #FFFFFF;
 }
 
+/* ==========================================================================
+   2. BASE
+   ========================================================================== */
+
 @layer base {
-/* --------------------------------------------------------------------------
-   2. RESET Y BASE
-   -------------------------------------------------------------------------- */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    background-color: #020617;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    min-height: 100vh;
+    max-width: var(--app-max-width);
+    margin-inline: auto;
+    position: relative;
+    overflow-x: hidden;
+
+    font-family: var(--font-family);
+    line-height: 1.5;
+    color: var(--text-dark);
+    background-color: var(--bg-page);
+
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  }
+
+  img,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    list-style: none;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--text-dark);
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-  background-color: #020617;
-  -webkit-tap-highlight-color: transparent;
-}
+/* ==========================================================================
+   3. UTILIDADES GLOBALES
+   ========================================================================== */
 
-body {
-  font-family: var(--font-family);
-  line-height: 1.5;
-  color: var(--text-dark);
-  background-color: var(--bg-page);
-  min-height: 100vh;
-  max-width: var(--app-max-width);
-  margin: 0 auto;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
-  position: relative;
-  overflow-x: hidden;
-}
-
-img, svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-ul, ol {
-  list-style: none;
-}
-
-.no-scrollbar {
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* --------------------------------------------------------------------------
-   3. CONTENEDORES Y TIPOGRAFÍA
-   -------------------------------------------------------------------------- */
-
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 800;
-  line-height: 1.15;
-  color: var(--text-dark);
-}
-
-h1 { font-size: 1.75rem; }
-h2 { font-size: 1.35rem; }
-h3 { font-size: 1.05rem; }
-
-}
-
-/* .container va fuera de la capa: Tailwind tiene una utilidad con el mismo nombre y esta debe ganarle */
+/* Contenedor general */
 .container {
   width: 92%;
   max-width: 100%;
-  margin: 0 auto;
+  margin-inline: auto;
 }
 
-/* --------------------------------------------------------------------------
-   4. BOTONES
-   -------------------------------------------------------------------------- */
+/* Scroll horizontal sin barra visible */
+.no-scrollbar,
+.scrollbar-none {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ==========================================================================
+   4. COMPONENTES COMPARTIDOS
+   Mantener mientras existan componentes que utilicen estas clases.
+   ========================================================================== */
+
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: var(--radius-md);
-  font-weight: 700;
-  font-size: 0.9rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
   width: 100%;
+  padding: 0.85rem 1.25rem;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  cursor: pointer;
   user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn:active {
@@ -225,7 +299,11 @@ h3 { font-size: 1.05rem; }
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--brand-primary) 0%,
+    var(--brand-primary-dark) 100%
+  );
   color: var(--brand-primary-text);
   box-shadow: 0 4px 12px color-mix(in srgb, var(--brand-primary) 35%, transparent);
 }
@@ -244,15 +322,15 @@ h3 { font-size: 1.05rem; }
   background: var(--brand-secondary-dark);
 }
 
-/* --------------------------------------------------------------------------
-   5. TARJETAS Y SECCIONES
-   -------------------------------------------------------------------------- */
+/* Cards */
 .card {
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
   padding: 1rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+
+  background: var(--bg-card);
   border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
 }
 
@@ -260,8 +338,9 @@ h3 { font-size: 1.05rem; }
   border-color: var(--brand-primary);
 }
 
+/* Sections */
 .section {
-  padding: 1.5rem 0;
+  padding-block: 1.5rem;
 }
 
 .section__header {
@@ -272,20 +351,20 @@ h3 { font-size: 1.05rem; }
 }
 
 .section__title {
+  position: relative;
   color: var(--text-dark);
   font-size: 1.2rem;
-  position: relative;
 }
 
-/* --------------------------------------------------------------------------
-   6. NAVEGACIÓN DE CATEGORÍAS
-   -------------------------------------------------------------------------- */
+/* Category navigation */
 .categories-nav {
   display: flex;
-  overflow-x: auto;
   gap: 0.6rem;
+  overflow-x: auto;
+
   padding-bottom: 0.5rem;
   margin-bottom: 1.25rem;
+
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -297,12 +376,16 @@ h3 { font-size: 1.05rem; }
 .category-btn {
   flex-shrink: 0;
   padding: 0.5rem 1.1rem;
-  border-radius: var(--radius-full);
-  background: var(--bg-card);
+
   border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-full);
+
+  background: var(--bg-card);
   color: var(--text-dark);
-  font-weight: 700;
+
   font-size: 0.825rem;
+  font-weight: 700;
+
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -314,22 +397,43 @@ h3 { font-size: 1.05rem; }
   border-color: var(--brand-primary-dark);
 }
 
-/* Animaciones de splash y bienvenida: se usan como utilidades (animate-splash-pop, etc.) */
+/* ==========================================================================
+   5. ANIMATIONS
+   ========================================================================== */
+
 @theme {
   --animate-splash-pop: splash-pop 0.7s ease-out both;
   --animate-splash-rise: splash-rise 0.6s ease-out both;
   --animate-splash-draw: splash-draw 0.7s ease-out both;
 
   @keyframes splash-pop {
-    from { opacity: 0; transform: scale(0.85); }
-    to { opacity: 1; transform: none; }
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
+
   @keyframes splash-rise {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: none; }
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
+
   @keyframes splash-draw {
-    from { stroke-dashoffset: 1; }
-    to { stroke-dashoffset: 0; }
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 }
